@@ -69,19 +69,7 @@ int main (int argc, char *argv[]){
 
     printf("height1 %i %i height2 %i %i",w_1,h_1,w_2,h_2);
 
-    if( w_1<w_2 || h_1<h_2 || strcmp(type_1, "P6") != 0 || strcmp(type_2, "P6") != 0){
-
-    }
-
-    int fd3 = open(argv[3],O_WRONLY|O_CREAT|O_TRUNC,0777);
-
-    char tmp[size_1];
-	lseek(fd1, 0, SEEK_SET);
-	read(fd1, tmp, size_len_1);
-	write(fd3, tmp, size_len_1);
-
-    for(){
-
+    if(w_1<w_1){
 
     }
 

@@ -1,51 +1,57 @@
-#include<unistd.h>
 #include<stdio.h>
 #include<stdlib.h>
-#include<fcntl.h>
-#include<sys/wait.h>
+#include<unistd.h>
+#include<sys/types.h>
 #include<string.h>
-
-void child(int *fd, char *arg[]);
-void parent(int *fd, char *args[]);
-
+#include<sys/wait.h>
+#include <fcntl.h>
+ 
 int main(int argc, char *argv[])
 {
-	int fd[2],pid,status;
-	pipe(fd);
-    pid = fork();
+ 
+    int fd[2]; //Used for pipe ends.
+    char buf[118];
+    int pid;
+    int fd2 = open("result.txt", O_CREAT| O_RDWR, 0755);
+    int n;
+    
+ 
+    if (pipe(fd)==-1) //checks if pipe executed
+    {
+        printf("\nPipe Failed\n");
+        return 1;
+    }
 
-	if(pid > 0)
-	{
-		wait(&status);
-		parent(fd, argv);
-	}
-	else if(pid == 0)
-	{
-		child(fd, argv);
-	}
-}
+    pid = fork(); // forks
+ 
+    if (pid < 0)
+    {
+        printf("\nfork Failed\n");
+        return 1;
+    }
+ 
+   
+    else if (pid > 0)
+    {
+	close(fd[1]);
+	n = read(fd[0], buf, sizeof(buf));
+    write(fd2, &buf, n);
+    
+	
+	
+	printf("\nParent %d writing into file: result.txt\n", pid);
+	printf("\nThe result of %s is written into result.txt with %d bytes.\n", argv[1], n);
+     
+    }
+ 
+  
+    else
+    {
+	close(fd[0]);
+	dup2(fd[1], STDOUT_FILENO);
+	execlp(argv[1], argv[1], NULL); 
+	
 
-void child(int *fd1, char *arg[])
-{
-	close(fd1[0]);
-	dup2(fd1[1],STDOUT_FILENO);
-	execlp(arg[1],arg[1],NULL);
-	close(fd1[1]);
-}
-
-void parent(int *fd2, char *args[])
-{
-	int fdw, c;
-	char arr[200];
-
-	close(fd2[1]);
-	dup2(fd2[0],STDIN_FILENO);
-	read(fd2[0],arr,sizeof(arr));
-	c = strlen(arr);
-	fdw = open("result.txt",O_WRONLY | O_CREAT | O_TRUNC,0777);
-	write(fdw,arr,c);
-	printf("The result of %s is written into result.txt with total %d bytes.\n",args[1],c);
-	close(fdw);
-	close(fd2[0]);
-	close(fd2[1]);
+	
+    }
 }

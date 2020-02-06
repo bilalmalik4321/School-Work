@@ -1,9 +1,7 @@
 //
 //  Lab6.c
 //  
-//
-//  Created by Zain Mustafa on 2017-11-01.
-//
+
 
 #include <stdio.h>
 #include <fcntl.h>

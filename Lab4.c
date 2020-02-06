@@ -1,8 +1,5 @@
 //
 //  Lab4.c
-//  
-//
-//  Created by Zain Mustafa on 2017-10-18.
 //
 
 #include <stdio.h>

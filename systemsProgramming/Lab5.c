@@ -2,8 +2,6 @@
 //  Lab5.c
 //  
 //
-//  Created by Zain Mustafa on 2017-10-25.
-//
 
 #include <stdio.h>
 #include <unistd.h>

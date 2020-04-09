@@ -1,0 +1,1 @@
+Here can be found all the source code from projects and assignments from the Operating systems course. The programs are written in c, and range from process management and multithreading to creating small TLBs and Page tables to calculate page fault rates.

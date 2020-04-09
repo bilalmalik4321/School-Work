@@ -1,0 +1,1 @@
+Here can be found the source code for the assignments of the software testing and verification class. If is written in java with the JUnit library, breaking down test cases in many methodologies from equivalence partitions to boundary value analysis, and through both black and whitebox methodologies.
